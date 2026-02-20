@@ -44,6 +44,7 @@ func (h *EventHandler) CreateEvent(c *gin.Context) {
 
 	event, err := h.svc.CreateEvent(c.Request.Context(), organizerID, req)
 	if err != nil {
+		println("CreateEvent error:", err.Error())
 		c.JSON(http.StatusInternalServerError, dto.Err("failed to create event"))
 		return
 	}

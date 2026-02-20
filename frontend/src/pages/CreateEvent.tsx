@@ -13,9 +13,20 @@ export function CreateEventPage() {
   const [startsAt, setStartsAt] = useState('')
   const [endsAt, setEndsAt] = useState('')
   const [capacity, setCapacity] = useState(50)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    
+    // Validate dates
+    const start = new Date(startsAt)
+    const end = new Date(endsAt)
+    
+    if (end <= start) {
+      setError('End date must be after start date')
+      return
+    }
+    
     try {
       const payload = {
         title,
@@ -23,8 +34,8 @@ export function CreateEventPage() {
         location,
         is_online: false,
         online_url: '',
-        starts_at: new Date(startsAt).toISOString(),
-        ends_at: new Date(endsAt).toISOString(),
+        starts_at: start.toISOString(),
+        ends_at: end.toISOString(),
         capacity,
         price_cents: 0,
         banner_url: '',
@@ -33,6 +44,7 @@ export function CreateEventPage() {
       navigate(`/events/${created.id}`)
     } catch (err) {
       console.error(err)
+      setError('Failed to create event. Please check all fields and try again.')
     }
   }
 
@@ -128,6 +140,11 @@ export function CreateEventPage() {
             className="w-32 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
+        {error && (
+          <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 px-4 py-3 text-sm text-rose-300">
+            {error}
+          </div>
+        )}
         <Button type="submit" loading={createMutation.isPending} className="w-full">
           Create event
         </Button>
