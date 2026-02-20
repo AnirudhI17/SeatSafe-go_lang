@@ -8,6 +8,7 @@ export function RegisterPage() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState<'attendee' | 'organizer'>('attendee')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -16,7 +17,7 @@ export function RegisterPage() {
     setError(null)
     setLoading(true)
     try {
-      await register({ email, password, full_name: fullName })
+      await register({ email, password, full_name: fullName, role })
     } catch (err) {
       console.error(err)
       setError('Registration failed. Please try again.')
@@ -79,6 +80,35 @@ export function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200"
           />
+        </div>
+        <div className="space-y-2 text-sm">
+          <label className="block text-slate-200">I want to</label>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => setRole('attendee')}
+              className={`rounded-lg border-2 px-4 py-3 text-left transition-all duration-200 ${
+                role === 'attendee'
+                  ? 'border-purple-500 bg-purple-500/10 text-white'
+                  : 'border-slate-700 bg-slate-900/50 text-slate-300 hover:border-slate-600'
+              }`}
+            >
+              <div className="font-semibold">Attend Events</div>
+              <div className="text-xs text-slate-400">Book and manage tickets</div>
+            </button>
+            <button
+              type="button"
+              onClick={() => setRole('organizer')}
+              className={`rounded-lg border-2 px-4 py-3 text-left transition-all duration-200 ${
+                role === 'organizer'
+                  ? 'border-purple-500 bg-purple-500/10 text-white'
+                  : 'border-slate-700 bg-slate-900/50 text-slate-300 hover:border-slate-600'
+              }`}
+            >
+              <div className="font-semibold">Create Events</div>
+              <div className="text-xs text-slate-400">Organize and manage events</div>
+            </button>
+          </div>
         </div>
         {error && <p className="text-xs text-rose-300">{error}</p>}
         <Button type="submit" className="w-full" loading={loading}>
