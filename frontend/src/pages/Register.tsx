@@ -31,11 +31,11 @@ export function RegisterPage() {
       animate={{ opacity: 1, y: 0 }}
       className="mx-auto flex w-full max-w-md flex-col gap-6 rounded-2xl border border-slate-800/70 bg-slate-900/70 p-6 shadow-xl"
     >
-      <header className="space-y-1">
-        <h1 className="text-xl font-semibold text-slate-50">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-bold text-white">
           Create your SeatSafe account
         </h1>
-        <p className="text-xs text-slate-400">
+        <p className="text-sm text-slate-400">
           Book events in seconds and keep your tickets in one place.
         </p>
       </header>
@@ -50,7 +50,7 @@ export function RegisterPage() {
             required
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200"
           />
         </div>
         <div className="space-y-1 text-sm">
@@ -63,7 +63,7 @@ export function RegisterPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200"
           />
         </div>
         <div className="space-y-1 text-sm">
@@ -77,7 +77,7 @@ export function RegisterPage() {
             minLength={8}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200"
           />
         </div>
         {error && <p className="text-xs text-rose-300">{error}</p>}

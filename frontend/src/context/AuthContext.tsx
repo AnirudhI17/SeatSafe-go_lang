@@ -24,6 +24,7 @@ interface AuthContextValue {
     email: string
     password: string
     full_name: string
+    role?: string
   }) => Promise<void>
   logout: () => void
 }
@@ -69,8 +70,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     email: string
     password: string
     full_name: string
+    role?: string
   }) => {
-    const res = await api.post('/auth/register', payload)
+    // Default to 'attendee' role if not specified
+    const registrationData = {
+      ...payload,
+      role: payload.role || 'attendee'
+    }
+    const res = await api.post('/auth/register', registrationData)
     const data = res.data?.data
     setUser(data.user)
     setToken(data.token)
