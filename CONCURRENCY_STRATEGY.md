@@ -27,7 +27,7 @@ The problem occurs because of the **check-then-act** pattern:
 
 Between steps 1 and 2, another transaction can read the same stale value, leading to multiple transactions believing seats are available when they're not.
 
-## My Solution: Multi-Layered Defense
+## Solution: Multi-Layered Defense
 
 We implement a **defense-in-depth** strategy with three layers:
 
