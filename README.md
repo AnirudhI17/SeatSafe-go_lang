@@ -17,8 +17,6 @@ A production-ready event ticketing platform with concurrency-safe seat booking. 
 - ✅ Comprehensive error handling
 
 ### Frontend (React + TypeScript + Tailwind)
-- ✅ Modern gradient design with purple-to-pink theme
-- ✅ Smooth animations and transitions
 - ✅ Fully responsive layout
 - ✅ Real-time seat availability updates
 - ✅ User authentication flow
@@ -71,7 +69,8 @@ A production-ready event ticketing platform with concurrency-safe seat booking. 
 │   │   └── pages/            # Page components
 │   └── public/               # Static assets
 ├── CONCURRENCY_STRATEGY.md   # Concurrency implementation details
-└── DATABASE_SCHEMA.md        # Database schema documentation
+├── DATABASE_SCHEMA.md        # Database schema documentation
+└── HOW_TO_RUN.md            # Detailed setup guide
 ```
 
 ## Getting Started
@@ -109,7 +108,12 @@ go mod download
 go run cmd/migrate/main.go up
 ```
 
-6. Start the server:
+6. (Optional) Seed sample events:
+```bash
+psql $DATABASE_URL -f seed_clean_events.sql
+```
+
+7. Start the server:
 ```bash
 go run cmd/server/main.go
 ```
@@ -139,24 +143,6 @@ npm run dev
 ```
 
 Frontend will be available at `http://localhost:5173`
-
-## Testing
-
-### Backend
-
-Run unit tests:
-```bash
-cd backend
-go test ./...
-```
-
-### Frontend
-
-Build for production:
-```bash
-cd frontend
-npm run build
-```
 
 ## API Endpoints
 
@@ -285,11 +271,6 @@ npm run build
 2. Serve the `dist/` directory with any static file server (nginx, Apache, Vercel, Netlify, etc.)
 
 3. Set `VITE_API_URL` environment variable to your backend API URL
-
-## Documentation
-
-- [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md) - Complete database schema documentation
-- [CONCURRENCY_STRATEGY.md](CONCURRENCY_STRATEGY.md) - Concurrency implementation details
 
 ## Contributing
 
