@@ -12,8 +12,8 @@ export function Navbar() {
   }
 
   return (
-    <header className="border-b border-white/10 bg-slate-950/95 backdrop-blur-md sticky top-0 z-50">
-      <div className="mx-auto flex h-16 w-full items-center justify-between px-8 max-w-[1400px]">
+    <header className="w-full border-b border-white/10 bg-slate-950/95 backdrop-blur-md sticky top-0 z-50">
+      <div className="mx-auto flex h-16 w-full items-center justify-between px-8 max-w-[1600px]">
         <Link to="/" className="flex items-center gap-2.5 group">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 transition-transform duration-200 group-hover:scale-105">
             <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -38,16 +38,18 @@ export function Navbar() {
           </NavLink>
           {user && (
             <>
-              <NavLink 
-                to="/events/new" 
-                className={({ isActive }) => 
-                  `text-sm font-medium transition-colors duration-200 ${
-                    isActive ? 'text-white' : 'text-slate-300 hover:text-white'
-                  }`
-                }
-              >
-                Create Event
-              </NavLink>
+              {(user.role === 'organizer' || user.role === 'admin') && (
+                <NavLink 
+                  to="/events/new" 
+                  className={({ isActive }) => 
+                    `text-sm font-medium transition-colors duration-200 ${
+                      isActive ? 'text-white' : 'text-slate-300 hover:text-white'
+                    }`
+                  }
+                >
+                  Create Event
+                </NavLink>
+              )}
               <NavLink 
                 to="/dashboard" 
                 className={({ isActive }) => 

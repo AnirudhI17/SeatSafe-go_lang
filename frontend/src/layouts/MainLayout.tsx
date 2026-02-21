@@ -3,13 +3,13 @@ import { Navbar } from '../components/Navbar'
 
 export function MainLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <div className="flex min-h-screen w-full flex-col">
       <Navbar />
-      <main className="mx-auto flex w-full max-w-[1400px] flex-1 px-8 py-12">
+      <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-6 py-8 lg:px-12">
         {children}
       </main>
-      <footer className="border-t border-slate-800/50 bg-slate-950/50 py-8">
-        <div className="mx-auto max-w-[1400px] px-8">
+      <footer className="w-full border-t border-slate-800/50 bg-slate-900/70 backdrop-blur-md py-8">
+        <div className="mx-auto max-w-[1600px] px-6 lg:px-12">
           <div className="flex items-center justify-between">
             <p className="text-sm text-slate-400">
               © 2024 SeatSafe. All rights reserved.

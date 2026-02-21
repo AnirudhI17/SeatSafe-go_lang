@@ -65,21 +65,31 @@ func (s *RegistrationService) BookEvent(ctx context.Context, eventID, userID uui
 		return nil, nil, fmt.Errorf("booking failed after %d attempts: %w", maxRetries, err)
 	}
 
-	// Issue ticket after successful booking
-	ticket := &domain.Ticket{
-		ID:             uuid.New(),
-		RegistrationID: reg.ID,
-		EventID:        reg.EventID,
-		UserID:         reg.UserID,
-		TicketCode:     generateTicketCode(),
-	}
-	if createErr := s.ticketRepo.Create(ctx, ticket); createErr != nil {
-		// Non-fatal: registration succeeded. Ticket can be generated async.
-		fmt.Printf("WARNING: ticket generation failed for registration %s: %v\n", reg.ID, createErr)
-		ticket = nil
+	// Issue tickets after successful booking (one ticket per seat)
+	tickets := make([]*domain.Ticket, quantity)
+	for i := 0; i < quantity; i++ {
+		ticket := &domain.Ticket{
+			ID:             uuid.New(),
+			RegistrationID: reg.ID,
+			EventID:        reg.EventID,
+			UserID:         reg.UserID,
+			TicketCode:     generateTicketCode(),
+		}
+		if createErr := s.ticketRepo.Create(ctx, ticket); createErr != nil {
+			// Non-fatal: registration succeeded. Ticket can be generated async.
+			fmt.Printf("WARNING: ticket generation failed for registration %s: %v\n", reg.ID, createErr)
+		} else {
+			tickets[i] = ticket
+		}
 	}
 
-	return reg, ticket, nil
+	// Return the first ticket for backward compatibility
+	var firstTicket *domain.Ticket
+	if len(tickets) > 0 && tickets[0] != nil {
+		firstTicket = tickets[0]
+	}
+
+	return reg, firstTicket, nil
 }
 
 func (s *RegistrationService) GetMyRegistrations(ctx context.Context, userID uuid.UUID) ([]*domain.Registration, error) {

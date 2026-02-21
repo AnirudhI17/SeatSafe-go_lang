@@ -53,3 +53,20 @@ export function useMyTickets() {
   })
 }
 
+export function useCancelRegistration() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (registrationId: string) => {
+      const res = await api.delete(`/registrations/${registrationId}`)
+      return res.data
+    },
+    onSuccess: () => {
+      // Invalidate all related queries to refresh data
+      qc.invalidateQueries({ queryKey: ['registrations', 'me'] })
+      qc.invalidateQueries({ queryKey: ['tickets', 'me'] })
+      qc.invalidateQueries({ queryKey: ['events'] })
+      qc.invalidateQueries({ queryKey: ['event'] })
+    },
+  })
+}
+

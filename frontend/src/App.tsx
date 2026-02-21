@@ -15,38 +15,40 @@ const queryClient = new QueryClient()
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AuthProvider>
-          <MainLayout>
-            <AnimatePresence mode="wait">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/events/:id" element={<EventDetailsPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route
-                  path="/events/new"
-                  element={
-                    <RequireAuth>
-                      <CreateEventPage />
-                    </RequireAuth>
-                  }
-                />
-                <Route
-                  path="/dashboard"
-                  element={
-                    <RequireAuth>
-                      <DashboardPage />
-                    </RequireAuth>
-                  }
-                />
-              </Routes>
-            </AnimatePresence>
-          </MainLayout>
-        </AuthProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <div className="w-full min-h-screen flex flex-col">
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AuthProvider>
+            <MainLayout>
+              <AnimatePresence mode="wait">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/events/:id" element={<EventDetailsPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route
+                    path="/events/new"
+                    element={
+                      <RequireAuth>
+                        <CreateEventPage />
+                      </RequireAuth>
+                    }
+                  />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <RequireAuth>
+                        <DashboardPage />
+                      </RequireAuth>
+                    }
+                  />
+                </Routes>
+              </AnimatePresence>
+            </MainLayout>
+          </AuthProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </div>
   )
 }
 

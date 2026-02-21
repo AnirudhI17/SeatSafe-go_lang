@@ -50,12 +50,16 @@ func (s *EventService) CreateEvent(ctx context.Context, organizerID uuid.UUID, r
 		PriceCents:  priceCents,
 		Currency:    "USD",
 		BannerURL:   req.BannerURL,
-		Status:      domain.EventStatusDraft,
+		Status:      domain.EventStatusPublished, // Auto-publish events
 	}
+
+	fmt.Printf("DEBUG: Creating event with status: %s\n", event.Status)
 
 	if err := s.eventRepo.Create(ctx, event); err != nil {
 		return nil, fmt.Errorf("EventService.CreateEvent: %w", err)
 	}
+	
+	fmt.Printf("DEBUG: Event created successfully with ID: %s, Status: %s\n", event.ID, event.Status)
 	return event, nil
 }
 

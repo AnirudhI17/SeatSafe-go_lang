@@ -42,7 +42,10 @@ export function useCreateEvent() {
       return res.data.data as Event
     },
     onSuccess: () => {
+      // Invalidate all event-related queries
       qc.invalidateQueries({ queryKey: ['events'] })
+      // Force refetch
+      qc.refetchQueries({ queryKey: ['events'] })
     },
   })
 }

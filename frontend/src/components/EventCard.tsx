@@ -112,15 +112,16 @@ export function EventCard({
                 minute: '2-digit',
               })}
             </span>
-            <Link to={`/events/${id}`}>
-              <Button
-                variant={isFull ? 'outline' : 'primary'}
-                disabled={isFull}
-                className="h-10 px-5 text-xs"
-              >
-                {isFull ? 'View Details' : 'Register Now'}
-              </Button>
-            </Link>
+            {!isFull && (
+              <Link to={`/events/${id}`}>
+                <Button
+                  variant="primary"
+                  className="h-10 px-5 text-xs"
+                >
+                  Register Now
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
