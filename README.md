@@ -1,6 +1,6 @@
 # SeatSafe - Event Ticketing System
 
-A modern, production-ready event ticketing system with concurrency-safe seat booking, built with Go and React.
+A production-ready event ticketing platform with concurrency-safe seat booking. Built with Go, PostgreSQL, React, and TypeScript. Features JWT auth, RBAC, and real-time availability.
 
 ## Features
 
@@ -17,14 +17,14 @@ A modern, production-ready event ticketing system with concurrency-safe seat boo
 - ✅ Comprehensive error handling
 
 ### Frontend (React + TypeScript + Tailwind)
-- ✅ Ticketleap-inspired premium design
-- ✅ Purple-to-pink gradient theme
+- ✅ Modern gradient design with purple-to-pink theme
 - ✅ Smooth animations and transitions
-- ✅ Responsive layout
-- ✅ Real-time seat availability
+- ✅ Fully responsive layout
+- ✅ Real-time seat availability updates
 - ✅ User authentication flow
 - ✅ Event browsing and booking
 - ✅ Dashboard for users and organizers
+- ✅ Registration cancellation
 
 ## Tech Stack
 
@@ -61,9 +61,7 @@ A modern, production-ready event ticketing system with concurrency-safe seat boo
 │   │   ├── repository/       # Database layer
 │   │   ├── router/           # Route definitions
 │   │   └── service/          # Business logic
-│   ├── migrations/           # SQL migrations
-│   └── tests/
-│       └── integration/      # Integration tests
+│   └── migrations/           # SQL migrations
 ├── frontend/
 │   ├── src/
 │   │   ├── api/              # API client
@@ -72,7 +70,9 @@ A modern, production-ready event ticketing system with concurrency-safe seat boo
 │   │   ├── layouts/          # Layout components
 │   │   └── pages/            # Page components
 │   └── public/               # Static assets
-└── docs/                     # Documentation
+├── CONCURRENCY_STRATEGY.md   # Concurrency implementation details
+├── DATABASE_SCHEMA.md        # Database schema documentation
+└── HOW_TO_RUN.md            # Detailed setup guide
 ```
 
 ## Getting Started
@@ -100,12 +100,22 @@ DATABASE_URL=postgresql://user:password@host:5432/database
 JWT_SECRET=your-secret-key-change-in-production
 ```
 
-4. Run migrations:
+4. Install dependencies:
+```bash
+go mod download
+```
+
+5. Run migrations:
 ```bash
 go run cmd/migrate/main.go up
 ```
 
-5. Start the server:
+6. (Optional) Seed sample events:
+```bash
+psql $DATABASE_URL -f seed_clean_events.sql
+```
+
+7. Start the server:
 ```bash
 go run cmd/server/main.go
 ```
@@ -138,28 +148,17 @@ Frontend will be available at `http://localhost:5173`
 
 ## Testing
 
-### Backend Tests
+### Backend
 
-Run all tests:
+Run unit tests:
 ```bash
 cd backend
 go test ./...
 ```
 
-Run integration tests:
-```bash
-go test -tags=integration -v ./tests/integration
-```
+### Frontend
 
-Run API tests (PowerShell):
-```powershell
-./test_backend_fresh.ps1
-```
-
-**Test Results:** 16/16 passing (100%)
-
-### Frontend Build
-
+Build for production:
 ```bash
 cd frontend
 npm run build
@@ -188,21 +187,25 @@ npm run build
 
 ## Database Schema
 
-### Users
+For detailed database schema information, see [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md).
+
+### Tables Overview
+
+**Users**
 - Authentication and authorization
 - Roles: attendee, organizer, admin
 
-### Events
+**Events**
 - Event details and metadata
 - Capacity management
 - Status: draft, published, cancelled, completed
 
-### Registrations
+**Registrations**
 - User event registrations
 - Quantity tracking
 - Status: pending, confirmed, cancelled
 
-### Tickets
+**Tickets**
 - Individual tickets per registration
 - Unique ticket codes
 - QR code support
@@ -213,26 +216,28 @@ npm run build
 - Uses PostgreSQL's `SELECT FOR UPDATE` for atomic seat booking
 - Prevents overbooking under high load
 - Transaction-based registration flow
+- See [CONCURRENCY_STRATEGY.md](CONCURRENCY_STRATEGY.md) for details
 
 ### Security
 - JWT authentication with bcrypt password hashing
 - Role-based access control (RBAC)
 - CORS configuration
-- Input validation
+- Input validation and sanitization
 
 ### Performance
-- Database connection pooling
+- Database connection pooling (configurable min/max connections)
 - Indexed queries for fast lookups
 - Efficient pagination
+- Graceful shutdown handling
 
 ## Design System
 
-The frontend follows a Ticketleap-inspired design with:
-- **Colors:** Purple-to-pink gradients
+The frontend features a modern design with:
+- **Colors:** Purple-to-pink gradients (#8B5CF6 to #EC4899)
 - **Typography:** Clean, modern sans-serif
-- **Spacing:** Consistent 8px grid
-- **Animations:** Subtle 200-300ms transitions
-- **Components:** Rounded, elevated cards with hover effects
+- **Spacing:** Consistent 8px grid system
+- **Animations:** Smooth 200-300ms transitions
+- **Components:** Rounded cards with hover effects and shadows
 
 ## Environment Variables
 
@@ -258,15 +263,40 @@ VITE_API_URL=http://localhost:8080
 ## Deployment
 
 ### Backend
-1. Build binary: `go build -o server cmd/server/main.go`
-2. Set production environment variables
-3. Run migrations: `./migrate up`
-4. Start server: `./server`
+1. Build binary:
+```bash
+cd backend
+go build -o server cmd/server/main.go
+```
+
+2. Set production environment variables in `.env`
+
+3. Run migrations:
+```bash
+./server migrate up
+```
+
+4. Start server:
+```bash
+./server
+```
 
 ### Frontend
-1. Build: `npm run build`
-2. Serve `dist/` directory with any static file server
-3. Configure API URL in environment
+1. Build for production:
+```bash
+cd frontend
+npm run build
+```
+
+2. Serve the `dist/` directory with any static file server (nginx, Apache, Vercel, Netlify, etc.)
+
+3. Set `VITE_API_URL` environment variable to your backend API URL
+
+## Documentation
+
+- [HOW_TO_RUN.md](HOW_TO_RUN.md) - Detailed setup and running instructions
+- [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md) - Complete database schema documentation
+- [CONCURRENCY_STRATEGY.md](CONCURRENCY_STRATEGY.md) - Concurrency implementation details
 
 ## Contributing
 
