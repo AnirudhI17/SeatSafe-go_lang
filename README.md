@@ -210,15 +210,6 @@ For detailed database schema information, see [DATABASE_SCHEMA.md](DATABASE_SCHE
 - Efficient pagination
 - Graceful shutdown handling
 
-## Design System
-
-The frontend features a modern design with:
-- **Colors:** Purple-to-pink gradients (#8B5CF6 to #EC4899)
-- **Typography:** Clean, modern sans-serif
-- **Spacing:** Consistent 8px grid system
-- **Animations:** Smooth 200-300ms transitions
-- **Components:** Rounded cards with hover effects and shadows
-
 ## Environment Variables
 
 ### Backend
