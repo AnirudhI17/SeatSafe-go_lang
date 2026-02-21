@@ -49,6 +49,8 @@ restart_frontend.bat
 start_all.bat
 CHANGELOG.md
 QUICK_START.md
+HOW_TO_RUN.md
+seed_clean_events.sql
 
 # Testing (keep local only)
 backend/tests/

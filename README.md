@@ -71,8 +71,7 @@ A production-ready event ticketing platform with concurrency-safe seat booking. 
 │   │   └── pages/            # Page components
 │   └── public/               # Static assets
 ├── CONCURRENCY_STRATEGY.md   # Concurrency implementation details
-├── DATABASE_SCHEMA.md        # Database schema documentation
-└── HOW_TO_RUN.md            # Detailed setup guide
+└── DATABASE_SCHEMA.md        # Database schema documentation
 ```
 
 ## Getting Started
@@ -110,12 +109,7 @@ go mod download
 go run cmd/migrate/main.go up
 ```
 
-6. (Optional) Seed sample events:
-```bash
-psql $DATABASE_URL -f seed_clean_events.sql
-```
-
-7. Start the server:
+6. Start the server:
 ```bash
 go run cmd/server/main.go
 ```
@@ -294,7 +288,6 @@ npm run build
 
 ## Documentation
 
-- [HOW_TO_RUN.md](HOW_TO_RUN.md) - Detailed setup and running instructions
 - [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md) - Complete database schema documentation
 - [CONCURRENCY_STRATEGY.md](CONCURRENCY_STRATEGY.md) - Concurrency implementation details
 
