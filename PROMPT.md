@@ -107,15 +107,6 @@ Deliver:
 
 Wait for confirmation.
 
-### Phase 8: Deployment & Production Hardening
-
-Deliver:
-- Dockerfile
-- Environment config
-- Deployment steps (Fly.io / Vercel)
-- CI/CD outline
-- README structure
-- Documentation explaining race condition prevention
 
 ## Important Notes
 
