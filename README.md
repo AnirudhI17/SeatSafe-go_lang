@@ -6,7 +6,7 @@ A modern, production-ready event ticketing system with concurrency-safe seat boo
 
 ### Backend (Go + PostgreSQL)
 - ✅ JWT-based authentication
-- ✅ Role-based access control (Attendee, Organizer, Admin)
+- ✅ Role-based access control (Attendee, Organizer)
 - ✅ Concurrency-safe seat booking with SELECT FOR UPDATE
 - ✅ Event management (create, publish, list)
 - ✅ Registration and ticket generation
