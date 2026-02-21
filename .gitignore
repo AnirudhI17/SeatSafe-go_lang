@@ -37,3 +37,15 @@ Thumbs.db
 coverage/
 *.cover
 *.coverprofile
+
+# System-specific scripts and files (keep local only)
+test_backend.ps1
+test_backend.sh
+test_backend_fresh.ps1
+run_seed_events.ps1
+check_and_restart_backend.ps1
+restart_backend.bat
+restart_frontend.bat
+start_all.bat
+CHANGELOG.md
+QUICK_START.md
