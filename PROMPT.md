@@ -1,5 +1,3 @@
-You are acting as a senior backend and frontend architect. We are building an industry-grade Event Registration & Ticketing System (similar to Eventbrite).
-
 ## Tech Stack
 
 **Backend:** Go (Gin)  
