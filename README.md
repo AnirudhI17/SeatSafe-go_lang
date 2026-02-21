@@ -6,7 +6,7 @@ A production-ready event ticketing platform with concurrency-safe seat booking. 
 
 ### Backend (Go + PostgreSQL)
 - ✅ JWT-based authentication
-- ✅ Role-based access control (Attendee, Organizer)
+- ✅ Role-based access control (Attendee, Organizer, Admin)
 - ✅ Concurrency-safe seat booking with SELECT FOR UPDATE
 - ✅ Event management (create, publish, list)
 - ✅ Registration and ticket generation
@@ -17,6 +17,8 @@ A production-ready event ticketing platform with concurrency-safe seat booking. 
 - ✅ Comprehensive error handling
 
 ### Frontend (React + TypeScript + Tailwind)
+- ✅ Modern gradient design with purple-to-pink theme
+- ✅ Smooth animations and transitions
 - ✅ Fully responsive layout
 - ✅ Real-time seat availability updates
 - ✅ User authentication flow
