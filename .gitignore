@@ -49,3 +49,6 @@ restart_frontend.bat
 start_all.bat
 CHANGELOG.md
 QUICK_START.md
+
+# Testing (keep local only)
+backend/tests/
